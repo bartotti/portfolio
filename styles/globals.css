@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: black;
+}
+#image-logo {
+  max-width: 25%;
+  max-height: 100%;
+  border-radius: 20px;
+}
+#myselfpic {
+  border-radius: 55%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.main-screen-pic {
+  margin-top: 10%;
+  padding-bottom: 45%;
+}
+
+.use-ref {
+  padding-top: 30px;
+  font-size: 22px;
+}
+
+.container {
+  width: 100%;
+  will-change: contents;
+  height: 100%;
+  min-height: 577px;
+  text-align: center;
+  position: relative;
+}
+
+.container img {
+  display: inline-block;
+}
+
+.top {
+  height: 100%;
+  text-align: center;
+  width: 50%;
+  /* border-radius: 10px; */
+  /* background-color: white; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); */
+  display: inline-block;
+}
+
+#linkedinpic {
+  width: 5%;
+  height: 5%;
+  border: none;
+}
+
+#githubpic {
+  width: 5%;
+  height: 5%;
+  border: none;
+}
+
+#linkedinpic:hover {
+  transform: scale(1.2);
+}
+
+#githubpic:hover {
+  transform: scale(1.2);
+}
+
+.about-me {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 66px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#about-me-description {
+  font-style: normal;
+  color: hsl(210, 69%, 20%);
+  font-size: 29px;
+  padding-left: 20px;
+}
+
+.about-me-content {
+  text-align: left;
+}
+#about-me-p {
+  line-height: 2;
+  padding-left: 20px;
+}
