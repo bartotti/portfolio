@@ -50,36 +50,47 @@ function Interview() {
   };
 
   return (
-    <div>
+    <div className=".container-interview ">
       <NavBar />
-      <button onClick={handleClick} className="btn btn-outline-primary">
-        Show Random Questions
-      </button>
-      <button
-        onClick={handleDisplayAllQuestion}
-        className="btn btn-outline-primary"
-      >
-        Display All Questions
-      </button>
-      {randomQuestions && randomQuestions.length > 0 ? (
-        randomQuestions.map(item => (
-          <div key={item.id}>
-            {item.question}, {item.answer}
+      <header className="header-container">
+        <div>
+          <button onClick={handleClick} className="btn">
+            Show Random Questions
+          </button>
+        </div>
+        <div>
+          <button onClick={handleDisplayAllQuestion} className="btn">
+            Display All Questions
+          </button>
+        </div>
+        {randomQuestions && randomQuestions.length > 0 ? (
+          <div className="index-card-container">
+            {randomQuestions.map(item => (
+              <div key={item.id} className="index-card">
+                <h4>{item.question}</h4>
+                <p>{item.answer}</p>
+              </div>
+            ))}
           </div>
-        ))
-      ) : (
-        <p>No matching event found</p>
-      )}
+        ) : (
+          <p>Click the button to generate random questions.</p>
+        )}
 
-      {questionDisplay && questionAndAnswer && questionAndAnswer.length > 0 ? (
-        questionAndAnswer.map(item => (
-          <div key={item.id}>
-            {item.question}, {item.answer}
+        {questionDisplay &&
+        questionAndAnswer &&
+        questionAndAnswer.length > 0 ? (
+          <div className="grid-container">
+            {questionAndAnswer.map(item => (
+              <div key={item.id} className="grid-item">
+                <h4>{item.question}</h4>
+                <p>{item.answer}</p>
+              </div>
+            ))}
           </div>
-        ))
-      ) : (
-        <p></p>
-      )}
+        ) : (
+          <p></p>
+        )}
+      </header>
     </div>
   );
 }
