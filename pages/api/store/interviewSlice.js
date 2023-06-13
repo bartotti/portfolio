@@ -14,6 +14,21 @@ export const fetchQuestionAndAnswerAsync = createAsyncThunk(
   }
 );
 
+export const createQuestionsAndAnswerAsync = createAsyncThunk(
+  "questionAndAnswer/createQuestionsAndAnswer",
+  async ({ question, answer, category }) => {
+    try {
+      const { data } = await supabase
+        .from(`interview_data`)
+        .insert([{ question, answer, category }])
+        .single();
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 export const importFileAsync = createAsyncThunk(
   "interviews/importFile",
   async file => {
@@ -47,6 +62,12 @@ const interviewSlice = createSlice({
     builder.addCase(importFileAsync.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(
+      createQuestionsAndAnswerAsync.fulfilled,
+      (state, action) => {
+        state.push(action.payload);
+      }
+    );
   },
 });
 

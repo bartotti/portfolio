@@ -1,48 +1,43 @@
 import React, { useRef, useEffect } from "react";
-import Test from "./Test";
-import AddQuestion from "./AddQuestion";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 const handleLinkedinClick = () => {
   window.open("https://www.linkedin.com/in/xiaoleijiangasd", "_blank");
 };
 const handleGithubClick = () => {
-  window.open("www.google.com", "_blank");
+  window.open("https://github.com/bartotti", "_blank");
 };
 
 const MainPage = () => {
   const typedRef = useRef(null);
 
-  useEffect(() => {
-    const items = typedRef.current.getAttribute("data-typed-items").split(",");
+  const typeNextItem = () => {
+    const items = ["Developer", "Freelancer", "Gamer"];
     let currentItem = 0;
 
-    const typeNextItem = () => {
-      typedRef.current.textContent = items[currentItem].trim();
-
-      currentItem++;
-      if (currentItem >= items.length) {
-        currentItem = 0;
+    const updateTextContent = () => {
+      if (typedRef.current) {
+        typedRef.current.textContent = items[currentItem].trim();
+        currentItem = (currentItem + 1) % items.length;
       }
-
-      setTimeout(typeNextItem, 2000);
     };
 
+    updateTextContent();
+    setInterval(updateTextContent, 2000);
+  };
+
+  useEffect(() => {
     typeNextItem();
   }, []);
 
   return (
     <div className="container">
       <div>
-        <AddQuestion />
-        <Test />
         <div className="top">
           <div className="use-ref">
             <p>My name is Xiaolei Jiang and im </p>
-            <span
-              className="typed"
-              data-typed-items="Developer, Freelancer, Gamer"
-              ref={typedRef}
-            >
+            <span className="typed" ref={typedRef}>
               Dev
             </span>
           </div>
@@ -68,6 +63,7 @@ const MainPage = () => {
               ever-changing code challenges.
             </p>
           </div>
+          <hr className="horizontal-line" />
           <div className="about-me">
             <div className="about-me-content">
               <p id="about-me-description">About Me</p>
@@ -107,9 +103,12 @@ const MainPage = () => {
               </ul>
             </div>
           </div>
-          <div className="contact-section"></div>
+          <hr className="horizontal-line" />
+          <Contact />
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
