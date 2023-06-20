@@ -29,7 +29,7 @@ export default function NavBar() {
           </li>
           <li className="nav_item">
             <Link href="/Interview" className="link-style">
-              Interview Questions
+              Gym
             </Link>
           </li>
           <li className="nav_item" style={liStyle}>

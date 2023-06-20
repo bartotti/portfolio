@@ -75,7 +75,8 @@ function Interview() {
         ) : (
           <p>Click the button to generate random questions.</p>
         )}
-
+        <hr className="horizontal-line" />
+        <h1 style={{ paddingBottom: "10px" }}>Render all question: </h1>
         {questionDisplay &&
         questionAndAnswer &&
         questionAndAnswer.length > 0 ? (

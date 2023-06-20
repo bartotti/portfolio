@@ -1,8 +1,13 @@
 import React from "react";
 import ProtectedPage from "./components/ProtectedPage";
+import Counter from "./components/Counter";
 
 function AddQuestion() {
-  return <ProtectedPage />;
+  return (
+    <div>
+      <ProtectedPage /> <Counter />{" "}
+    </div>
+  );
 }
 
 export default AddQuestion;
