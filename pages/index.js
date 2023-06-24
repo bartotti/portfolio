@@ -1,10 +1,10 @@
 import MainPage from "./MainPage";
-import NavBar from "./NavBar";
+// import NavBar from "./NavBar";
 
 export default function Home() {
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
       <MainPage />
     </div>
   );
