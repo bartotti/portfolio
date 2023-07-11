@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Rusume from "./Rusume";
 
 export default function NavBar() {
   const [clickCount, setClickCount] = useState(0);
@@ -30,6 +31,16 @@ export default function NavBar() {
           <li className="nav_item">
             <Link href="/Interview" className="link-style">
               Gym
+            </Link>
+          </li>
+          <li className="nav_item">
+            <Link href="/Rusume" className="link-style">
+              Rusume
+            </Link>
+          </li>
+          <li className="nav_item">
+            <Link href="/Cal" className="link-style">
+              Calculator
             </Link>
           </li>
           <li className="nav_item" style={liStyle}>

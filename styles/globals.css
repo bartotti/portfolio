@@ -223,6 +223,17 @@ button:hover {
   border-radius: 4px;
   text-align: center;
 }
+
+.cal-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.target-input-tag {
+  width: 20%;
+}
+
 @media only screen and (max-width: 767px) {
   nav {
     nav {

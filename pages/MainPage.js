@@ -63,7 +63,7 @@ const MainPage = () => {
               ever-changing code challenges.
             </p>
           </div>
-          <hr className="horizontal-line" />
+          {/* <hr className="horizontal-line" /> */}
           <div className="about-me">
             <div className="about-me-content">
               <p id="about-me-description">About Me</p>
