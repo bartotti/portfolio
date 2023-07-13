@@ -41,9 +41,9 @@ nav::before {
   width: 120px;
   height: 40px;
   left: 49%;
-  /* top: 20%; */
   background-color: #0088a9;
   filter: blur(90px);
+  pointer-events: none;
 }
 
 nav::after {
@@ -52,9 +52,9 @@ nav::after {
   width: 120px;
   height: 40px;
   left: 77%;
-  /* top: 20%; */
   background-color: #0088a9;
   filter: blur(90px);
+  pointer-events: none;
 }
 
 #myselfpic {

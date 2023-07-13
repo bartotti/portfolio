@@ -1,10 +1,12 @@
 import React, { use, useState } from "react";
+import * as math from "mathjs";
 
 const Calculator = () => {
   const [totalAmount, setTotalAmount] = useState("");
   const [tipPercentage, setTipPercentage] = useState(15);
   const [guestNumber, setGuestNumber] = useState(1);
-  const [cashBackTotalAmount, setCashBackTotalAmount] = useState("");
+  const [expression, setExpression] = useState("");
+  const [result, setResult] = useState("");
 
   /* tip section */
   const handleTotalAmountChange = event => {
@@ -22,7 +24,7 @@ const Calculator = () => {
   const calculateTipAmount = () => {
     const tipAmount = (totalAmount * tipPercentage) / 100;
     const totalTipAdded = parseFloat(totalAmount) + tipAmount;
-    const totalAmountAfterSplit = parseFloat(totalAmount / guestNumber);
+    const totalAmountAfterSplit = parseFloat(totalTipAdded / guestNumber);
     return [
       tipAmount.toFixed(2),
       totalTipAdded.toFixed(2),
@@ -34,7 +36,18 @@ const Calculator = () => {
 
   /* tip section */
 
-  const handleCashBackInput = () => {};
+  const handleExpressionChange = event => {
+    setExpression(event.target.value);
+  };
+
+  const handleEvaluate = () => {
+    try {
+      const evaluiatedResult = math.evaluate(expression);
+      setResult(evaluiatedResult);
+    } catch (error) {
+      setResult("Invalide input");
+    }
+  };
 
   return (
     <div className="container">
@@ -78,8 +91,14 @@ const Calculator = () => {
             <p>After Split: ${totalAmountAfterSplitValue}</p>
           </div>
           <div className="form-field">
-            <p>CashBack Calculator</p>
-            <label htmlFor="cashBackTotalAmount"></label>
+            <p>Simple Calculator</p>
+            <input
+              type="text"
+              value={expression}
+              onChange={handleExpressionChange}
+            />
+            <button onClick={handleEvaluate}>Submit</button>
+            <p>Result: {result}</p>
           </div>
         </div>
 
