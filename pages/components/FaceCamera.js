@@ -8,6 +8,8 @@ function FaceCamera() {
   const [question, setQuestion] = useState("");
   const canvasRef = useRef();
 
+  let score = 0;
+
   const sadThreshold = 0.03;
   const happyThreshold = 0.04;
   const angryThreshold = 0.03;
@@ -55,25 +57,31 @@ function FaceCamera() {
   };
 
   const faceMyDetect = () => {
+    const video = document.getElementById("video");
     let streamStarted = false;
-    let score = 0;
+    let rating = [
+      "Your getting closer",
+      "Your doing okay",
+      "Your doing greate",
+    ];
 
     setInterval(async () => {
       const detections = await faceapi
-        .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
+        .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withFaceExpressions();
       canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(
         videoRef.current
       );
+
       faceapi.matchDimensions(canvasRef.current, {
-        width: 940,
-        height: 650,
+        width: video.offsetWidth,
+        height: video.offsetHeight,
       });
 
       const resized = faceapi.resizeResults(detections, {
-        width: 940,
-        height: 650,
+        width: video.offsetWidth,
+        height: video.offsetHeight,
       });
 
       if (detections.length > 0) {
@@ -87,6 +95,7 @@ function FaceCamera() {
             track.stop();
           });
           console.log("my name is score and im sad " + score);
+          window.alert(score);
         }
         if (happy > happyThreshold) {
           score++;
@@ -95,6 +104,7 @@ function FaceCamera() {
             track.stop();
           });
           console.log("my name is score and im happy" + score);
+          window.alert(score);
         }
         if (angry > angryThreshold) {
           score++;
@@ -103,6 +113,7 @@ function FaceCamera() {
             track.stop();
           });
           console.log("my name is score and im angry" + score);
+          window.alert(score);
         }
       } else {
         console.log("No face detected");
@@ -117,12 +128,22 @@ function FaceCamera() {
     <div className="container">
       <div>
         <div className="top">
-          <div className="bontainer">
+          <div>
             <button onClick={handleStartGame}>Start Game</button>
             {gameStarted && (
-              <video ref={videoRef} autoPlay style={{ display: "block" }} />
+              <video
+                id="video"
+                ref={videoRef}
+                autoPlay
+                style={{ display: "block", width: "100%", height: "100%" }}
+              />
             )}
-            <canvas ref={canvasRef} />
+            <div>
+              <canvas
+                ref={canvasRef}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
           </div>
         </div>
       </div>
