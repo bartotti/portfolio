@@ -273,7 +273,8 @@ button:hover {
 }
 
 video {
-  width: 50%;
+  width: 940px;
+  height: 650px;
 }
 
 canvas {

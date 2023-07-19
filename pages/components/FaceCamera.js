@@ -1,13 +1,24 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
 
 function FaceCamera() {
-  const videoRef = useRef();
+  const [gameStarted, setGameStarted] = useState(false);
+  const videoRef = useRef(null);
+  //   const [score, setScore] = useState(0);
+  const [question, setQuestion] = useState("");
   const canvasRef = useRef();
+
+  const sadThreshold = 0.03;
+  const happyThreshold = 0.04;
+  const angryThreshold = 0.03;
+
   useEffect(() => {
-    startVideo();
-    videoRef && loadModels();
-  }, []);
+    if (gameStarted) {
+      startVideo();
+      loadModels();
+    }
+  }, [gameStarted]);
+
   const startVideo = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true })
@@ -30,7 +41,23 @@ function FaceCamera() {
     });
   };
 
+  const randomPicker = () => {
+    const expressions = ["😄happy", "🙁sad", "😡angry"];
+    const randomIndex = Math.floor(Math.random() * expressions.length);
+    const randomExpression = expressions[randomIndex];
+    setQuestion(randomExpression);
+
+    console.log("random picker", randomExpression);
+  };
+
+  const handleStartGame = () => {
+    setGameStarted(true);
+  };
+
   const faceMyDetect = () => {
+    let streamStarted = false;
+    let score = 0;
+
     setInterval(async () => {
       const detections = await faceapi
         .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
@@ -49,93 +76,58 @@ function FaceCamera() {
         height: 650,
       });
 
+      if (detections.length > 0) {
+        const expressions = detections[0].expressions;
+        console.log("Expressions:", expressions);
+        const { sad, happy, angry } = expressions;
+        if (sad > sadThreshold) {
+          score++;
+          streamStarted = true;
+          videoRef.current.srcObject.getTracks().forEach(track => {
+            track.stop();
+          });
+          console.log("my name is score and im sad " + score);
+        }
+        if (happy > happyThreshold) {
+          score++;
+          streamStarted = true;
+          videoRef.current.srcObject.getTracks().forEach(track => {
+            track.stop();
+          });
+          console.log("my name is score and im happy" + score);
+        }
+        if (angry > angryThreshold) {
+          score++;
+          streamStarted = true;
+          videoRef.current.srcObject.getTracks().forEach(track => {
+            track.stop();
+          });
+          console.log("my name is score and im angry" + score);
+        }
+      } else {
+        console.log("No face detected");
+      }
       faceapi.draw.drawDetections(canvasRef.current, resized);
       faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
       faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
-    }, 500);
+    }, 2000);
   };
 
   return (
-    <div className="bontainer">
-      <video ref={videoRef} autoPlay muted />
-      <canvas ref={canvasRef} />
+    <div className="container">
+      <div>
+        <div className="top">
+          <div className="bontainer">
+            <button onClick={handleStartGame}>Start Game</button>
+            {gameStarted && (
+              <video ref={videoRef} autoPlay style={{ display: "block" }} />
+            )}
+            <canvas ref={canvasRef} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default FaceCamera;
-
-// import React, { useEffect, useRef } from "react";
-// import * as faceapi from "face-api.js";
-// // import * as canvasRef from "canvas";
-
-// function FaceCamera() {
-//   const videoRef = useRef(null);
-//   const canvasRef = useRef(null);
-
-//   useEffect(() => {
-//     async function loadModels() {
-//       await Promise.all([
-//         faceapi.nets.tinyFaceDetector.loadFromUri("models"),
-//         faceapi.nets.faceLandmark68Net.loadFromUri("models"),
-//       ]);
-//     }
-
-//     async function startWebcam() {
-//       try {
-//         const stream = await navigator.mediaDevices.getUserMedia({
-//           video: true,
-//           audio: false,
-//         });
-//         if (videoRef.current) {
-//           videoRef.current.srcObject = stream;
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     }
-
-//     async function detectFaces() {
-//       if (videoRef.current && canvasRef.current) {
-//         const video = videoRef.current;
-//         const canvas = canvasRef.current;
-//         const context = canvas.getContext("2d");
-
-//         faceapi.matchDimensions(canvas, {
-//           height: video.height,
-//           width: video.width,
-//         });
-
-//         setInterval(async () => {
-//           const detections = await faceapi
-//             .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-//             .withFaceLandmarks();
-
-//           const resizedDetections = faceapi.resizeResults(detections, {
-//             height: video.videoHeight,
-//             width: video.videoWidth,
-//           });
-
-//           context.clearRect(0, 0, canvas.width, canvas.height);
-//           faceapi.draw.drawDetections(canvas, resizedDetections);
-//           faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-
-//           console.log(detections);
-//         }, 100);
-//       }
-//     }
-
-//     loadModels();
-//     startWebcam();
-//     detectFaces();
-//   }, []);
-
-//   return (
-//     <div className="bontainer">
-//       <video ref={videoRef} autoPlay muted />
-//       <canvas ref={canvasRef} />
-//     </div>
-//   );
-// }
-
-// export default FaceCamera;
