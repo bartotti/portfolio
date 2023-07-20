@@ -5,7 +5,7 @@ const Rusume = () => {
     <div>
       <h1>PDF Viewer</h1>
       <iframe
-        src={`/XiaoleiJiangResumeJune2023.pdf`}
+        src={`/XiaoleiJiang_ResumeJune2023.pdf`}
         style={{
           position: "fixed",
           top: 0,

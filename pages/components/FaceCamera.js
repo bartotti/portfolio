@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
+import { random } from "mathjs";
 
 function FaceCamera() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -32,6 +33,15 @@ function FaceCamera() {
       });
   };
 
+  const stopVideo = () => {
+    if (videoRef.current.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+    console.log("stopVideo i got called");
+  };
+
   const loadModels = () => {
     Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
@@ -54,16 +64,61 @@ function FaceCamera() {
 
   const handleStartGame = () => {
     setGameStarted(true);
+    randomPicker();
   };
 
-  const faceMyDetect = () => {
-    const video = document.getElementById("video");
+  const handlePlayAngin = () => {
+    setGameStarted(true);
+    randomPicker();
+  };
+
+  const gameLogic = detections => {
     let streamStarted = false;
     let rating = [
       "Your getting closer",
       "Your doing okay",
       "Your doing greate",
     ];
+
+    if (detections.length > 0) {
+      const expressions = detections[0].expressions;
+      console.log("Expressions:", expressions);
+      const { sad, happy, angry } = expressions;
+
+      if (sad > sadThreshold) {
+        score++;
+        streamStarted = true;
+        videoRef.current.srcObject.getTracks().forEach(track => {
+          track.stop();
+        });
+        console.log("my name is score and im sad " + score);
+        stopVideo();
+      }
+      if (happy > happyThreshold) {
+        score++;
+        streamStarted = true;
+        videoRef.current.srcObject.getTracks().forEach(track => {
+          track.stop();
+        });
+        stopVideo();
+        console.log("my name is score and im happy" + score);
+      }
+      if (angry > angryThreshold) {
+        score++;
+        streamStarted = true;
+        videoRef.current.srcObject.getTracks().forEach(track => {
+          track.stop();
+        });
+        console.log("my name is score and im angry" + score);
+        stopVideo();
+      }
+    } else {
+      console.log("No face detected");
+    }
+  };
+
+  const faceMyDetect = () => {
+    const video = document.getElementById("video");
 
     setInterval(async () => {
       const detections = await faceapi
@@ -83,45 +138,11 @@ function FaceCamera() {
         width: video.offsetWidth,
         height: video.offsetHeight,
       });
-
-      if (detections.length > 0) {
-        const expressions = detections[0].expressions;
-        console.log("Expressions:", expressions);
-        const { sad, happy, angry } = expressions;
-        if (sad > sadThreshold) {
-          score++;
-          streamStarted = true;
-          videoRef.current.srcObject.getTracks().forEach(track => {
-            track.stop();
-          });
-          console.log("my name is score and im sad " + score);
-          window.alert(score);
-        }
-        if (happy > happyThreshold) {
-          score++;
-          streamStarted = true;
-          videoRef.current.srcObject.getTracks().forEach(track => {
-            track.stop();
-          });
-          console.log("my name is score and im happy" + score);
-          window.alert(score);
-        }
-        if (angry > angryThreshold) {
-          score++;
-          streamStarted = true;
-          videoRef.current.srcObject.getTracks().forEach(track => {
-            track.stop();
-          });
-          console.log("my name is score and im angry" + score);
-          window.alert(score);
-        }
-      } else {
-        console.log("No face detected");
-      }
+      gameLogic(detections);
       faceapi.draw.drawDetections(canvasRef.current, resized);
       faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
       faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -130,6 +151,7 @@ function FaceCamera() {
         <div className="top">
           <div>
             <button onClick={handleStartGame}>Start Game</button>
+            <h1>{`Try to make ${question} facesExpression`}</h1>
             {gameStarted && (
               <video
                 id="video"
@@ -141,7 +163,7 @@ function FaceCamera() {
             <div>
               <canvas
                 ref={canvasRef}
-                style={{ width: "100%", height: "100%" }}
+                style={{ display: "none", width: "100%", height: "100%" }}
               />
             </div>
           </div>

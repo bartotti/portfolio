@@ -35,7 +35,7 @@ export default function NavBar() {
           </li>
           <li className="nav_item">
             <Link href="/Rusume" className="link-style">
-              Rusume
+              Resume
             </Link>
           </li>
           <li className="nav_item">
