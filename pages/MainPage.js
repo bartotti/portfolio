@@ -57,7 +57,7 @@ const MainPage = () => {
                 onClick={handleGithubClick}
               ></img>
             </div>
-            <h1>Software Enginer</h1>
+            <h1>Software Engineer</h1>
             <p>
               I have a passion for tackling intricate, <br />
               ever-changing code challenges.

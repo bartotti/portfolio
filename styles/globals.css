@@ -120,7 +120,6 @@ nav::after {
   grid-template-columns: 1fr 1fr;
   grid-gap: 66px;
   border-radius: 10px;
-  /* background-color: white; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
@@ -149,9 +148,9 @@ nav::after {
 .contact-form-container {
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f9f9f9;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 h2 {
