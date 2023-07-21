@@ -5,6 +5,11 @@ import Rusume from "./Rusume";
 export default function NavBar() {
   const [clickCount, setClickCount] = useState(0);
   const [liStyle, setLiStyle] = useState({ display: "none" });
+  const [clickMenu, setClickMenu] = useState(false);
+
+  const handleClick = () => {
+    setClickMenu(prevState => !prevState);
+  };
 
   const handleImgClick = () => {
     setClickCount(prevCount => prevCount + 1);
@@ -29,24 +34,32 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav_item">
-            <Link href="/Interview" className="link-style">
-              Gym
-            </Link>
-          </li>
-          <li className="nav_item">
             <Link href="/Rusume" className="link-style">
               Resume
-            </Link>
-          </li>
-          <li className="nav_item">
-            <Link href="/Cal" className="link-style">
-              Calculator
             </Link>
           </li>
           <li className="nav_item" style={liStyle}>
             <Link href="AddQuestion" className="link-style">
               Add Question
             </Link>
+          </li>
+          <li className="nav_item">
+            <div onClick={handleClick} style={{ color: "black" }}>
+              Project Lists
+            </div>
+            {clickMenu && (
+              <ul className="dropdown-menu">
+                <li>
+                  <Link href="/FC">FaceGame</Link>
+                </li>
+                <li>
+                  <Link href="/Cal">Calculator</Link>
+                </li>
+                <li>
+                  <Link href="/Interview">Gym</Link>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </nav>

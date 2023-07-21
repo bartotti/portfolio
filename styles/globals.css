@@ -57,6 +57,31 @@ nav::after {
   pointer-events: none;
 }
 
+/*drop down menu section for css*/
+
+.dropdown-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  list-style-type: none;
+  z-index: 1;
+}
+
+ul.dropdown-menu li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-left: -40px;
+  color: black;
+}
+a {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+/*drop down menu section for css*/
+
 #myselfpic {
   border-radius: 55%;
   transition: transform 0.3s ease-in-out;
