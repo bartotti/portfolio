@@ -5,7 +5,6 @@ import {
   fetchContactAsync,
   selectContact,
 } from "../api/store/createContactSlice";
-import { isRejected } from "@reduxjs/toolkit";
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -13,6 +12,8 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [location, setLocation] = useState(null);
+  const [ipAddress, setIpAddress] = useState("");
+  let [dbIpAddress, setDbIpAddress] = useState([]);
 
   const ipRequestCount = {};
 
@@ -20,15 +21,31 @@ const Contact = () => {
     dispatch(fetchContactAsync());
   }, [dispatch]);
 
+  const fetchContactTable = useSelector(selectContact);
   useEffect(() => {
-    fetch("https://ipapi.co/json/")
-      .then(response => response.json())
-      .then(data => {
-        setLocation(data.ip);
-      })
-      .catch(error => console.log(error));
+    // const dbIpAddress = [];
+
+    const ipAddresses = fetchContactTable.map(contact => contact.ip_address);
+    dbIpAddress.push(...ipAddresses);
+  }, []);
+  useEffect(() => {
+    const fetchIpAddress = async () => {
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
+        const ipAddress = data.ip;
+        setIpAddress(ipAddress);
+      } catch (error) {
+        console.error("Error fetching IP address:", error);
+      }
+    };
+
+    fetchIpAddress();
   }, []);
 
+  const resetIpAddress = e => {
+    setDbIpAddress([]);
+  };
   const handleSetName = e => {
     setName(e.target.value);
   };
@@ -40,19 +57,28 @@ const Contact = () => {
   const handleSetMessage = e => {
     setMessage(e.target.value);
   };
-  const handleAddContact = async (e, location) => {
-    if (ipRequestCount[location]) {
-      if (ipRequestCount[location] >= 3) {
-        alert("Max request limit reached from Send Request");
-        return;
+  const handleAddContact = async e => {
+    const ip_address = ipAddress;
+    if (dbIpAddress.length > 0) {
+      let count = 0;
+      for (let i = 0; i < dbIpAddress.length; i++) {
+        if (dbIpAddress[i] === ipAddress) {
+          count++;
+          if (count > 3) {
+            console.log("You have reached the maximum limit of submissions.");
+            return;
+          }
+        }
       }
-      ipRequestCount[location]++;
-    } else {
-      ipRequestCount[location] = 1;
+      // console.log("this is count " + count);
     }
 
+    // dispatch(createContactAsync({ name, email, message, ip_address }));
     dispatch(createContactAsync({ name, email, message }));
-    console.log(ipRequestCount);
+    // take over around here still fixing the ip_address that goes into db
+    window.alert(name + "  Thanks you the contacting !");
+    // console.log("my name is ip address ;  " + ipAddress);
+    // console.log(dbIpAddress);
   };
 
   return (

@@ -15,11 +15,11 @@ export const fetchContactAsync = createAsyncThunk(
 
 export const createContactAsync = createAsyncThunk(
   "contact/createContact",
-  async ({ name, email, message }) => {
+  async ({ name, email, message, ip_address }) => {
     try {
       const { data } = await supabase
         .from("contact_info")
-        .insert([{ name, email, message }])
+        .insert([{ name, email, message, ip_address }])
         .single();
       return data;
     } catch (err) {
