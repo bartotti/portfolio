@@ -75,6 +75,10 @@ const Contact = () => {
 
     // dispatch(createContactAsync({ name, email, message, ip_address }));
     dispatch(createContactAsync({ name, email, message }));
+
+    setEmail("");
+    setName("");
+    setMessage("");
     // take over around here still fixing the ip_address that goes into db
     window.alert(name + "  Thanks you the contacting !");
     // console.log("my name is ip address ;  " + ipAddress);
