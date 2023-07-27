@@ -40,7 +40,7 @@ const MainPage = () => {
           <p id="intro-p">
             I'm a Full Stack web developer from New York, I enjoy building all
             kinds of projects with different api/libraries. The preferred
-            languages and framework are React.js and Next.js.
+            languages and framework are JavaScript, React.js and Next.js.
           </p>
           <p>
             I'm on{" "}
@@ -60,28 +60,32 @@ const MainPage = () => {
         </section>
         <section>
           <div className="aboutme-section">
-            <h2>Areas of Expertise</h2>
-            <h5>Front End</h5>
+            <h2>Skills</h2>
             <ul>
-              <li className="li-tag">Redux</li>
-              <li className="li-tag">HTML</li>
-              <li className="li-tag">CSS</li>
-            </ul>
-            <h5>Back End</h5>
-            <ul>
-              <li className="li-tag">JavaScript</li>
-              <li className="li-tag">NodesJS</li>
-              <li className="li-tag">Express</li>
-              <li className="li-tag">Sequelize</li>
-              <li className="li-tag">Postegres</li>
-              <li className="li-tag">SupaBase</li>
-            </ul>
-            <h5>Software and Platforms</h5>
-            <ul>
-              <li className="li-tag">Visual Studio code</li>
-              <li className="li-tag">Git</li>
-              <li className="li-tag">GitHub</li>
-              <li className="li-tag">Postman</li>
+              <span className="inline-it">
+                <li class="progress-label">JavaScript</li>
+                <progress max="100" value="82">
+                  82%
+                </progress>
+              </span>
+              <span className="inline-it">
+                <li class="progress-label">C++</li>
+                <progress max="100" value="45">
+                  45%
+                </progress>
+              </span>
+              <span className="inline-it">
+                <li class="progress-label">Python</li>
+                <progress max="100" value="50">
+                  50%
+                </progress>
+              </span>
+              <span className="inline-it">
+                <li class="progress-label">Java</li>
+                <progress max="100" value="59">
+                  59%
+                </progress>
+              </span>
             </ul>
           </div>
         </section>

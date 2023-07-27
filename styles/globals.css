@@ -79,6 +79,13 @@ body {
     font-size: 1.125rem;
     line-height: 2;
   }
+  .intro-img {
+    width: 7%;
+    border: none;
+  }
+  .intro-img:hover {
+    transform: scale(1.2);
+  }
   .aboutme-section {
     margin-bottom: 40px;
     margin-top: 60px;
@@ -248,7 +255,7 @@ body {
   }
 
   .input-tag-contact {
-    width: 50%;
+    width: 75%;
     box-shadow: 0 1px 4px #00000008;
     border-radius: 5px;
     border: 1px solid #e2e2e2;
@@ -272,8 +279,9 @@ body {
 
   .form-section {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    grid-gap: 10px; 
+    grid-template-columns: repeat(2, 1fr);
+    padding-right: 25px;
+    text-align: center;
   }
   .form-field {
     padding-bottom: 10px;
@@ -312,5 +320,17 @@ body {
   }
   .intro-img:hover {
     transform: scale(1.2);
+  }
+  .progress-label {
+    position: relative;
+    padding-right: 20px;
+  }
+  .progress-label::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .inline-it {
+    display: flex;
   }
 }
