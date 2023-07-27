@@ -19,50 +19,32 @@ export default function NavBar() {
   };
 
   return (
-    <header>
-      <nav>
-        <img
-          src="nameLogo.png"
-          id="image-logo"
-          alt="Logo"
-          onClick={handleImgClick}
-        />
-        <ul className="nav_links">
-          <li className="nav_item">
-            <Link href="/" className="link-style">
-              Home
-            </Link>
-          </li>
-          <li className="nav_item">
-            <Link href="/Rusume" className="link-style">
-              Resume
-            </Link>
-          </li>
-          <li className="nav_item" style={liStyle}>
-            <Link href="AddQuestion" className="link-style">
-              Add Question
-            </Link>
-          </li>
-          <li className="nav_item">
-            <div onClick={handleClick} style={{ color: "black" }}>
-              Project Lists
-            </div>
-            {clickMenu && (
-              <ul className="dropdown-menu">
-                <li>
-                  <Link href="/FC">FaceGame</Link>
-                </li>
-                <li>
-                  <Link href="/Cal">Calculator</Link>
-                </li>
-                <li>
-                  <Link href="/Interview">Gym</Link>
-                </li>
-              </ul>
-            )}
-          </li>
-        </ul>
-      </nav>
+    <header className="header-section">
+      <div className="logo-section">
+        <a href="/">
+          <img src="my_self.png" id="image-logo" alt="picOfXiaolei" />
+        </a>
+        <span className="span-nav">
+          <span className="logo-name">XIAOLEI JIANG</span>
+          <nav>
+            <li className="nav_item">
+              <Link href="/Contact" className="link-style">
+                Contact
+              </Link>
+            </li>
+            <li className="nav_item">
+              <Link href="/Rusume" className="link-style">
+                Resume
+              </Link>
+            </li>
+            <li className="nav_item">
+              <Link href="/Projects" className="link-style">
+                Projects
+              </Link>
+            </li>
+          </nav>
+        </span>
+      </div>
     </header>
   );
 }

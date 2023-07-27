@@ -5,8 +5,10 @@ import {
   fetchContactAsync,
   selectContact,
 } from "../api/store/createContactSlice";
+import NavBar from "../NavBar";
+import Footer from "./Footer";
 
-const Contact = () => {
+const ContactForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -86,32 +88,53 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-form-container">
-      <h2>Contact</h2>
-      <div className="form-field">
-        <label htmlFor="name">Name:</label>
-        <input id="name" type="text" value={name} onChange={handleSetName} />
-      </div>
-      <div className="form-field">
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={handleSetEmail}
-        />
-      </div>
-      <div className="form-field">
-        <label htmlFor="message">Message:</label>
-        <textarea id="message" value={message} onChange={handleSetMessage} />
-      </div>
-      <div className="button-container">
-        <button type="submit" onClick={handleAddContact}>
-          Submit
-        </button>
+    <div className="container">
+      <div className="top">
+        <NavBar />
+        <h1>Contact</h1>
+        <p id="intro-p">
+          If you want get in touch with me you could leave message below and ill
+          respose within day or two.
+        </p>
+        <section className="form-section">
+          <div className="form-field">
+            <label htmlFor="name">Name:</label>
+            <input
+              className="input-tag-contact"
+              id="name"
+              type="text"
+              value={name}
+              onChange={handleSetName}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor="email">Email:</label>
+            <input
+              className="input-tag-contact"
+              id="email"
+              type="email"
+              value={email}
+              onChange={handleSetEmail}
+            />
+          </div>
+        </section>
+        <div className="form-field">
+          <label htmlFor="message">Message:</label>
+          <textarea id="message" value={message} onChange={handleSetMessage} />
+        </div>
+        <div className="button-container">
+          <button
+            className="btn-contact"
+            type="submit"
+            onClick={handleAddContact}
+          >
+            Submit
+          </button>
+        </div>
+        <Footer />
       </div>
     </div>
   );
 };
 
-export default Contact;
+export default ContactForm;

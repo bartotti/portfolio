@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import NavBar from "./NavBar";
 
 const handleLinkedinClick = () => {
   window.open("https://www.linkedin.com/in/xiaoleijiangasd", "_blank");
@@ -33,82 +33,60 @@ const MainPage = () => {
 
   return (
     <div className="container">
-      <div>
-        <div className="top">
-          <div className="use-ref">
-            <p>My name is Xiaolei Jiang and im </p>
-            <span className="typed" ref={typedRef}>
-              Dev
-            </span>
+      <div className="top">
+        <NavBar />
+        <section className="intro">
+          <h1 className=".inline-h1">😄 Hi there, i'm Xiaolei</h1>
+          <p id="intro-p">
+            I'm a Full Stack web developer from New York, I enjoy building all
+            kinds of projects with different api/libraries. The preferred
+            languages and framework are React.js and Next.js.
+          </p>
+          <p>
+            I'm on{" "}
+            <img
+              src="github.png"
+              className="intro-img"
+              onClick={handleGithubClick}
+            />{" "}
+            and{" "}
+            <img
+              className="intro-img"
+              src="linkedin.png"
+              onClick={handleLinkedinClick}
+            />
+            .
+          </p>
+        </section>
+        <section>
+          <div className="aboutme-section">
+            <h2>Areas of Expertise</h2>
+            <h5>Front End</h5>
+            <ul>
+              <li className="li-tag">Redux</li>
+              <li className="li-tag">HTML</li>
+              <li className="li-tag">CSS</li>
+            </ul>
+            <h5>Back End</h5>
+            <ul>
+              <li className="li-tag">JavaScript</li>
+              <li className="li-tag">NodesJS</li>
+              <li className="li-tag">Express</li>
+              <li className="li-tag">Sequelize</li>
+              <li className="li-tag">Postegres</li>
+              <li className="li-tag">SupaBase</li>
+            </ul>
+            <h5>Software and Platforms</h5>
+            <ul>
+              <li className="li-tag">Visual Studio code</li>
+              <li className="li-tag">Git</li>
+              <li className="li-tag">GitHub</li>
+              <li className="li-tag">Postman</li>
+            </ul>
           </div>
-          <div className="main-screen-pic">
-            <img id="myselfpic" src="my_self.png" alt="pic"></img>
-            <div className="social-link">
-              <img
-                id="linkedinpic"
-                src="linkedin.png"
-                alt="pic"
-                onClick={handleLinkedinClick}
-              ></img>
-              <img
-                id="githubpic"
-                src="github.png"
-                alt="githubicon"
-                onClick={handleGithubClick}
-              ></img>
-            </div>
-            <h1>Software Engineer</h1>
-            <p>
-              I have a passion for tackling intricate, <br />
-              ever-changing code challenges.
-            </p>
-          </div>
-          {/* <hr className="horizontal-line" /> */}
-          <div className="about-me">
-            <div className="about-me-content">
-              <p id="about-me-description">About Me</p>
-              <p id="about-me-p">
-                I have always been passionate about PCs and technology, starting
-                from a young age. I pursued a major in Computer Science during
-                my college years and further honed my skills by completing
-                Fullstack Academy's Grace Hopper Immersive Program. With a
-                genuine enthusiasm for coding and software development, I am
-                eager to contribute to the ever-evolving field of technology and
-                make a meaningful impact.
-              </p>
-            </div>
-            <div className="about-me-content">
-              <p id="about-me-description">Areas of Expertise</p>
-              <h5>Front End</h5>
-              <ul>
-                <li>Redux</li>
-                <li>HTML</li>
-                <li>CSS</li>
-              </ul>
-              <h5>Back End</h5>
-              <ul>
-                <li>JavaScript</li>
-                <li>NodesJS</li>
-                <li>Express</li>
-                <li>Sequelize</li>
-                <li>Postegres</li>
-                <li>SupaBase</li>
-              </ul>
-              <h5>Software and Platforms</h5>
-              <ul>
-                <li>Visual Studio code</li>
-                <li>Git</li>
-                <li>GitHub</li>
-                <li>Postman</li>
-              </ul>
-            </div>
-          </div>
-          <hr className="horizontal-line" />
-          <Contact />
-        </div>
+        </section>
+        <Footer />
       </div>
-
-      <Footer />
     </div>
   );
 };
