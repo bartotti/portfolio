@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
 import { random } from "mathjs";
+import NavBar from "../NavBar";
 
 function FaceCamera() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -142,30 +143,30 @@ function FaceCamera() {
       faceapi.draw.drawDetections(canvasRef.current, resized);
       faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
       faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
-    }, 1000);
+    }, 500);
   };
 
   return (
     <div className="container">
-      <div>
-        <div className="top">
+      <div className="top">
+        <NavBar />
+        <div>
+          <h1>{`Try to make ${question} FacesExpression`}</h1>
+          <button onClick={handleStartGame}>Start Game</button>
+
+          {gameStarted && (
+            <video
+              id="video"
+              ref={videoRef}
+              autoPlay
+              style={{ display: "block", width: "50%", height: "50%" }}
+            />
+          )}
           <div>
-            <button onClick={handleStartGame}>Start Game</button>
-            <h1>{`Try to make ${question} facesExpression`}</h1>
-            {gameStarted && (
-              <video
-                id="video"
-                ref={videoRef}
-                autoPlay
-                style={{ display: "block", width: "100%", height: "100%" }}
-              />
-            )}
-            <div>
-              <canvas
-                ref={canvasRef}
-                style={{ display: "none", width: "100%", height: "100%" }}
-              />
-            </div>
+            <canvas
+              ref={canvasRef}
+              style={{ display: "none", width: "50%", height: "50%" }}
+            />
           </div>
         </div>
       </div>

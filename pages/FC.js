@@ -5,7 +5,6 @@ import FaceCamera from "./components/FaceCamera";
 const Cal = () => {
   return (
     <div>
-      <NavBar />
       <FaceCamera />
     </div>
   );
