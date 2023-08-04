@@ -38,9 +38,10 @@ const MainPage = () => {
         <section className="intro">
           <h1 className=".inline-h1">😄 Hi there, i'm Xiaolei</h1>
           <p id="intro-p">
-            I'm a full-stack web developer from New York, and I enjoy building
-            all Various projects with various APIs and libraries. The preferred
-            languages and frameworks are JavaScript, React.js, and Next.js.
+            I'm a Full Stack web developer from New York, I enjoy building
+            different kind of projects by using various APIs and libraries.
+            <b>JavaScript</b>, <b>React.js</b>, and <b>Next.js</b> were the
+            preferred languages and frameworks
           </p>
           <p>
             I'm on{" "}

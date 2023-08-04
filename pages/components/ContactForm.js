@@ -98,7 +98,9 @@ const ContactForm = () => {
         </p>
         <section className="form-section">
           <div className="form-field">
-            <label htmlFor="name">Name:</label>
+            <label className="label-tag-contact" htmlFor="name">
+              Name:
+            </label>
             <input
               className="input-tag-contact"
               id="name"
@@ -108,7 +110,9 @@ const ContactForm = () => {
             />
           </div>
           <div className="form-field">
-            <label htmlFor="email">Email:</label>
+            <label className="label-tag-contact" htmlFor="email">
+              Email:
+            </label>
             <input
               className="input-tag-contact"
               id="email"
@@ -119,7 +123,9 @@ const ContactForm = () => {
           </div>
         </section>
         <div className="form-field">
-          <label htmlFor="message">Message:</label>
+          <label className="label-tag-contact" htmlFor="message">
+            Message:
+          </label>
           <textarea id="message" value={message} onChange={handleSetMessage} />
         </div>
         <div className="button-container">

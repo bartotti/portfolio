@@ -1,5 +1,7 @@
 import React, { use, useState } from "react";
 import * as math from "mathjs";
+import NavBar from "../NavBar";
+import Footer from "./Footer";
 
 const Calculator = () => {
   const [totalAmount, setTotalAmount] = useState("");
@@ -52,19 +54,24 @@ const Calculator = () => {
   return (
     <div className="container">
       <div className="top">
+        <NavBar />
         <div className="cal-container">
           <div className="form-field">
-            <p>Tip Calculator</p>
-            <label htmlFor="totalAmount">Total Amount:</label>
+            <h1>Tip Calculator</h1>
+
+            <p>Total Amount:</p>
+
             <input
               type="number"
               id="totalAmount"
               value={totalAmount}
               onChange={handleTotalAmountChange}
               className="target-input-tag"
+              placeholder="Enter total dinner amount"
             />
 
-            <label htmlFor="tipPercentage">Tip Percentage:</label>
+            <p>Tip Percentage:</p>
+
             <select
               id="tipPercentage"
               value={tipPercentage}
@@ -81,6 +88,7 @@ const Calculator = () => {
             </select>
             <p>Tip Amount: ${tipAmountValue}</p>
             <p>Total Amount: ${totalTipAddedValue}</p>
+            <p>Amount people split bill: </p>
             <input
               type="number"
               id="totalAmount"
@@ -90,19 +98,25 @@ const Calculator = () => {
             />
             <p>After Split: ${totalAmountAfterSplitValue}</p>
           </div>
+
           <div className="form-field">
-            <p>Simple Calculator</p>
+            <h2>Simple Calculator</h2>
             <input
               type="text"
               value={expression}
               onChange={handleExpressionChange}
+              className="target-input-tag"
+              placeholder="ex.3(2+3) or (9/3)3(4+4)"
             />
-            <button onClick={handleEvaluate}>Submit</button>
+            <div className="btn-container">
+              <button onClick={handleEvaluate} className="btn-calculator">
+                Submit
+              </button>
+            </div>
             <p>Result: {result}</p>
           </div>
         </div>
-
-        <hr />
+        <Footer />
       </div>
     </div>
   );
