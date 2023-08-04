@@ -9,7 +9,9 @@ function FaceCamera() {
   //   const [score, setScore] = useState(0);
   const [question, setQuestion] = useState("");
   const canvasRef = useRef();
-
+  const [sadExpression, setSadExpression] = useState("0.00%");
+  const [happyExpression, setHappyExpression] = useState("0.00%");
+  const [angryExpression, setAngryExpression] = useState("0.00%");
   let score = 0;
 
   const sadThreshold = 0.03;
@@ -54,6 +56,11 @@ function FaceCamera() {
     });
   };
 
+  const toPrecent = number => {
+    const percentage = (number * 100).toFixed(2) + "%";
+    return percentage;
+  };
+
   const randomPicker = () => {
     const expressions = ["😄happy", "🙁sad", "😡angry"];
     const randomIndex = Math.floor(Math.random() * expressions.length);
@@ -71,6 +78,7 @@ function FaceCamera() {
   const handlePlayAngin = () => {
     setGameStarted(true);
     randomPicker();
+    startVideo();
   };
 
   const gameLogic = detections => {
@@ -83,8 +91,20 @@ function FaceCamera() {
 
     if (detections.length > 0) {
       const expressions = detections[0].expressions;
-      console.log("Expressions:", expressions);
+      // console.log("Expressions:", expressions);
       const { sad, happy, angry } = expressions;
+      // console.log("Test Sad:", expressions.sad);
+      // console.log("Test Happy:", expressions.happy);
+      // console.log("Test angry:", expressions.angry);
+      // console.log("Test Neutral:", expressions.neutral);
+      // console.log("Test surprised:", expressions.surprised);
+      // console.log("Test disgusted:", expressions.disgusted);
+      const sadPercentage = toPrecent(expressions.sad);
+      const happyPercetage = toPrecent(expressions.happy);
+      const angryPercetage = toPrecent(expressions.angry);
+      setSadExpression(sadPercentage);
+      setHappyExpression(happyPercetage);
+      setAngryExpression(angryPercetage);
 
       if (sad > sadThreshold) {
         score++;
@@ -153,7 +173,7 @@ function FaceCamera() {
         <div>
           <h1>{`Try to make ${question} FacesExpression`}</h1>
           <button onClick={handleStartGame}>Start Game</button>
-
+          <button onClick={handlePlayAngin}>play agin Game</button>
           {gameStarted && (
             <video
               id="video"
@@ -167,6 +187,30 @@ function FaceCamera() {
               ref={canvasRef}
               style={{ display: "none", width: "50%", height: "50%" }}
             />
+            <p>Happy rate</p>
+            <progress
+              max="100"
+              value={parseFloat(happyExpression)}
+              aria-label={`Happy: ${happyExpression}`}
+            >
+              {happyExpression}
+            </progress>
+            <p>Angry rate</p>
+            <progress
+              max="100"
+              value={parseFloat(angryExpression)}
+              aria-label={`Angry: ${angryExpression}`}
+            >
+              {angryExpression}
+            </progress>
+            <p>Sad Rate</p>
+            <progress
+              max="100"
+              value={parseFloat(sadExpression)}
+              aria-label={`Sad: ${sadExpression}`}
+            >
+              {sadExpression}
+            </progress>
           </div>
         </div>
       </div>
