@@ -6,17 +6,13 @@ import NavBar from "../NavBar";
 function FaceCamera() {
   const [gameStarted, setGameStarted] = useState(false);
   const videoRef = useRef(null);
-  //   const [score, setScore] = useState(0);
-  const [question, setQuestion] = useState("");
   const canvasRef = useRef();
   const [sadExpression, setSadExpression] = useState("0.00%");
   const [happyExpression, setHappyExpression] = useState("0.00%");
   const [angryExpression, setAngryExpression] = useState("0.00%");
-  let score = 0;
-
-  const sadThreshold = 0.03;
-  const happyThreshold = 0.04;
-  const angryThreshold = 0.03;
+  const [neutralExpression, setNeutralExpression] = useState("0.00%");
+  const [surprisedExpression, setSurprisedExpression] = useState("0.00%");
+  const [disgustedExpression, setDisgustedExpression] = useState("0.00%");
 
   useEffect(() => {
     if (gameStarted) {
@@ -42,7 +38,7 @@ function FaceCamera() {
       tracks.forEach(track => track.stop());
       videoRef.current.srcObject = null;
     }
-    console.log("stopVideo i got called");
+    // console.log("stopVideo i got called");
   };
 
   const loadModels = () => {
@@ -61,80 +57,29 @@ function FaceCamera() {
     return percentage;
   };
 
-  const randomPicker = () => {
-    const expressions = ["😄happy", "🙁sad", "😡angry"];
-    const randomIndex = Math.floor(Math.random() * expressions.length);
-    const randomExpression = expressions[randomIndex];
-    setQuestion(randomExpression);
-
-    console.log("random picker", randomExpression);
-  };
-
   const handleStartGame = () => {
     setGameStarted(true);
-    randomPicker();
   };
 
-  const handlePlayAngin = () => {
-    setGameStarted(true);
-    randomPicker();
-    startVideo();
+  const handleStopVideo = () => {
+    stopVideo();
   };
 
   const gameLogic = detections => {
-    let streamStarted = false;
-    let rating = [
-      "Your getting closer",
-      "Your doing okay",
-      "Your doing greate",
-    ];
-
     if (detections.length > 0) {
       const expressions = detections[0].expressions;
-      // console.log("Expressions:", expressions);
-      const { sad, happy, angry } = expressions;
-      // console.log("Test Sad:", expressions.sad);
-      // console.log("Test Happy:", expressions.happy);
-      // console.log("Test angry:", expressions.angry);
-      // console.log("Test Neutral:", expressions.neutral);
-      // console.log("Test surprised:", expressions.surprised);
-      // console.log("Test disgusted:", expressions.disgusted);
       const sadPercentage = toPrecent(expressions.sad);
       const happyPercetage = toPrecent(expressions.happy);
       const angryPercetage = toPrecent(expressions.angry);
+      const neutralPercetage = toPrecent(expressions.neutral);
+      const surprisedPercentage = toPrecent(expressions.surprised);
+      const disgustedPercentage = toPrecent(expressions.disgusted);
       setSadExpression(sadPercentage);
       setHappyExpression(happyPercetage);
       setAngryExpression(angryPercetage);
-
-      if (sad > sadThreshold) {
-        score++;
-        streamStarted = true;
-        videoRef.current.srcObject.getTracks().forEach(track => {
-          track.stop();
-        });
-        console.log("my name is score and im sad " + score);
-        stopVideo();
-      }
-      if (happy > happyThreshold) {
-        score++;
-        streamStarted = true;
-        videoRef.current.srcObject.getTracks().forEach(track => {
-          track.stop();
-        });
-        stopVideo();
-        console.log("my name is score and im happy" + score);
-      }
-      if (angry > angryThreshold) {
-        score++;
-        streamStarted = true;
-        videoRef.current.srcObject.getTracks().forEach(track => {
-          track.stop();
-        });
-        console.log("my name is score and im angry" + score);
-        stopVideo();
-      }
-    } else {
-      console.log("No face detected");
+      setNeutralExpression(neutralPercetage);
+      setSurprisedExpression(surprisedPercentage);
+      setDisgustedExpression(disgustedPercentage);
     }
   };
 
@@ -171,23 +116,29 @@ function FaceCamera() {
       <div className="top">
         <NavBar />
         <div>
-          <h1>{`Try to make ${question} FacesExpression`}</h1>
-          <button onClick={handleStartGame}>Start Game</button>
-          <button onClick={handlePlayAngin}>play agin Game</button>
-          {gameStarted && (
-            <video
-              id="video"
-              ref={videoRef}
-              autoPlay
-              style={{ display: "block", width: "50%", height: "50%" }}
-            />
-          )}
+          <h1>Face detection</h1>
+          <div>
+            <button className="btn-calculator" onClick={handleStartGame}>
+              Start FaceCam
+            </button>
+            <button className="btn-calculator" onClick={handleStopVideo}>
+              Stop FaceCam
+            </button>
+            {gameStarted && (
+              <video
+                id="video"
+                ref={videoRef}
+                autoPlay
+                style={{ display: "block", width: "50%", height: "50%" }}
+              />
+            )}
+          </div>
           <div>
             <canvas
               ref={canvasRef}
               style={{ display: "none", width: "50%", height: "50%" }}
             />
-            <p>Happy rate</p>
+            <p>Happy Rate</p>
             <progress
               max="100"
               value={parseFloat(happyExpression)}
@@ -195,7 +146,7 @@ function FaceCamera() {
             >
               {happyExpression}
             </progress>
-            <p>Angry rate</p>
+            <p>Angry Rate</p>
             <progress
               max="100"
               value={parseFloat(angryExpression)}
@@ -210,6 +161,30 @@ function FaceCamera() {
               aria-label={`Sad: ${sadExpression}`}
             >
               {sadExpression}
+            </progress>
+            <p>Neutral Rate</p>
+            <progress
+              max="100"
+              value={parseFloat(neutralExpression)}
+              aria-label={`Sad: ${neutralExpression}`}
+            >
+              {neutralExpression}
+            </progress>
+            <p>Surprised Rate</p>
+            <progress
+              max="100"
+              value={parseFloat(surprisedExpression)}
+              aria-label={`Sad: ${surprisedExpression}`}
+            >
+              {surprisedExpression}
+            </progress>
+            <p>Disgusted Rate</p>
+            <progress
+              max="100"
+              value={parseFloat(disgustedExpression)}
+              aria-label={`Sad: ${disgustedExpression}`}
+            >
+              {disgustedExpression}
             </progress>
           </div>
         </div>

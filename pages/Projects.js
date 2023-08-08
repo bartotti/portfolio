@@ -9,6 +9,9 @@ function Projects() {
   const handleClickCalculator = () => {
     router.push("/Cal");
   };
+  const handleClickFC = () => {
+    router.push("/FC");
+  };
   return (
     <div className="container">
       <div className="top">
@@ -22,7 +25,35 @@ function Projects() {
         <section className="section-top">
           <div className="project-view">
             <div className="img-container">
-              <img src="project_cal.png" className="img-resize" />
+              <img
+                src="project_FC.png"
+                className="img-resize"
+                onClick={handleClickFC}
+                style={{ width: "422px" }}
+              />
+            </div>
+            <div className="project-detail-content">
+              <p className="h2-like-css">Face Tracking and Analysis</p>
+              <p className="large-projects">
+                Enter a numerical value, and the system will generate the tip
+                amount based on the provided input, adhering to the order of
+                operations.
+              </p>
+              <div className="project-view-list">
+                <ul className="list-container">
+                  <li className="list-item">face-api.js</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="project-view">
+            <div className="img-container">
+              <img
+                src="project_cal.png"
+                className="img-resize"
+                style={{ width: "422px" }}
+                onClick={handleClickCalculator}
+              />
             </div>
             <div className="project-detail-content">
               <p className="h2-like-css">Calculator</p>
@@ -31,6 +62,11 @@ function Projects() {
                 amount based on the provided input, adhering to the order of
                 operations.
               </p>
+              <div className="project-view-list">
+                <ul className="list-container">
+                  <li className="list-item">mathjs</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
