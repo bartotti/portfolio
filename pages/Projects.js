@@ -35,9 +35,9 @@ function Projects() {
             <div className="project-detail-content">
               <p className="h2-like-css">Face Tracking and Analysis</p>
               <p className="large-projects">
-                Enter a numerical value, and the system will generate the tip
-                amount based on the provided input, adhering to the order of
-                operations.
+                Face-api.js serves as the foundation for the entire project. It
+                incorporates the ability to identify emotions and visually
+                displays the results using a bar representation.
               </p>
               <div className="project-view-list">
                 <ul className="list-container">

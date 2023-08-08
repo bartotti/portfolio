@@ -63,6 +63,7 @@ function FaceCamera() {
 
   const handleStopVideo = () => {
     stopVideo();
+    setGameStarted(false)
   };
 
   const gameLogic = detections => {
