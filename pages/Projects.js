@@ -29,7 +29,6 @@ function Projects() {
                 src="project_FC.png"
                 className="img-resize"
                 onClick={handleClickFC}
-                style={{ width: "422px" }}
               />
             </div>
             <div className="project-detail-content">
@@ -51,7 +50,6 @@ function Projects() {
               <img
                 src="project_cal.png"
                 className="img-resize"
-                style={{ width: "422px" }}
                 onClick={handleClickCalculator}
               />
             </div>

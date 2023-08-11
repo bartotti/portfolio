@@ -236,9 +236,13 @@ body {
     font-size: 20px;
     color: rgba(25, 31, 52, 0.73);
   }
+
   .img-resize {
     width: 100%;
     border-radius: 20px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 0;
   }
   .img-resize:hover {
     transform: scale(1.1);
@@ -247,8 +251,6 @@ body {
     max-width: calc(100vw - 40px);
     width: calc(100% + 290px);
     position: relative;
-    /* left: 50%;
-    transform: translate(-50%); */
   }
   .project-view {
     display: flex;
@@ -581,7 +583,7 @@ body {
     color: rgba(25, 31, 52, 0.73);
   }
   .img-resize {
-    width: 100%;
+    width: 422px;
     border-radius: 20px;
   }
   .img-resize:hover {
