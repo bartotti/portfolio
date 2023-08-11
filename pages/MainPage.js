@@ -61,33 +61,68 @@ const MainPage = () => {
         </section>
         <section>
           <div className="aboutme-section">
-            <h2>Skills</h2>
-            <ul>
-              <span className="inline-it">
-                <li class="progress-label">JavaScript</li>
-                <progress max="100" value="82">
-                  82%
-                </progress>
-              </span>
-              <span className="inline-it">
-                <li class="progress-label">C++</li>
-                <progress max="100" value="45">
-                  45%
-                </progress>
-              </span>
-              <span className="inline-it">
-                <li class="progress-label">Python</li>
-                <progress max="100" value="50">
-                  50%
-                </progress>
-              </span>
-              <span className="inline-it">
-                <li class="progress-label">Java</li>
-                <progress max="100" value="59">
-                  59%
-                </progress>
-              </span>
-            </ul>
+            <div>
+              <h1 className="aboutme-h1-tag">Skills</h1>
+            </div>
+            <div className="large-container">
+              <div className="inner-container">
+                <div>
+                  <h3 className="inner-h3-tag">Programming Language</h3>
+                </div>
+                <ul style={{ paddingLeft: "0px" }}>
+                  <span className="inline-it">
+                    <li class="progress-label">JavaScript</li>
+                    <div className="inline-wrap">
+                      <progress max="100" value="82">
+                        82%
+                      </progress>
+                    </div>
+                  </span>
+                  <span className="inline-it">
+                    <li class="progress-label">C++</li>
+                    <progress max="100" value="45">
+                      45%
+                    </progress>
+                  </span>
+                  <span className="inline-it">
+                    <li class="progress-label">Python</li>
+                    <progress max="100" value="50">
+                      50%
+                    </progress>
+                  </span>
+                  <span className="inline-it">
+                    <li class="progress-label">Java</li>
+                    <progress max="100" value="59">
+                      59%
+                    </progress>
+                  </span>
+                </ul>
+              </div>
+              <div className="inner-divider"></div>
+              <div className="inner-container">
+                <div>
+                  <h3 className="inner-h3-tag">Front End</h3>
+                </div>
+                <ul style={{ paddingLeft: "0px" }}>
+                  <li class="inline-it-container">HTML</li>
+                  <li class="inline-it-container">CSS</li>
+                  <li class="inline-it-container">Redux</li>
+                  <li class="inline-it-container">Next.js</li>
+                </ul>
+              </div>
+              <div className="inner-divider"></div>
+              <div className="inner-container">
+                <div>
+                  <h3 className="inner-h3-tag">Back End</h3>
+                </div>
+                <ul style={{ paddingLeft: "0px" }}>
+                  <li class="inline-it-container">Node.js</li>
+                  <li class="inline-it-container">Express</li>
+                  <li class="inline-it-container">Sequelize</li>
+                  <li class="inline-it-container">Postegres</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
         <Footer />
